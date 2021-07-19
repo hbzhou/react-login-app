@@ -1,90 +1,75 @@
-import React from 'react'
+import React, {useRef} from 'react'
+
 import classnames from "classnames"
 import {withRouter} from 'react-router-dom'
+import {useForm} from "react-hook-form";
 
 
-class SignupForm extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            username: "",
-            email: "",
-            password: "",
-            passwordConfirm: "",
-            errorMessage: {},
-            isLoading: false
-
-        }
-    }
-
-    onChange = (e) => {
-        this.setState({[e.target.name]: e.target.value})
-    }
-
-    onSubmit = (e) => {
-        e.preventDefault();
-        this.setState({isLoading: true})
-        this.props.registerActions.registerAction(this.state).then(response => {
-                this.props.flashActions.addFlashMessage({
+function SignupForm({registerActions, flashActions, history}) {
+    const {register, handleSubmit,watch, formState: {errors}} = useForm();
+    const password = useRef({});
+    password.current = watch("password", "");
+    const onSubmit = (data) => {
+        registerActions.registerAction(data).then(response => {
+                flashActions.addFlashMessage({
                     type: "success",
                     text: "Register successfully,welcome to join our community!"
                 })
-                this.props.history.push('/')
+                history.push('/')
             }, ({response}) => {
-                this.setState({errorMessage: response.data.errorMessage, isLoading: false})
+                flashActions.addFlashMessage({
+                    type: "danger",
+                    text: response.data.error
+                })
             }
         )
     }
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <h1>Join our community</h1>
+            <div className="form-group">
+                <label className="control-label">Username</label>
+                <input className={classnames('form-control', {'is-invalid': errors.username})}
+                       type="text"
+                       {...register("username", {required: true})}
+                />
+                {errors.username && <span className="form-text text-muted">UserName is required</span>}
+            </div>
+            <div className="form-group">
+                <label className="control-label">Email</label>
+                <input className={classnames('form-control', {'is-invalid': errors.email})}
+                       type="email"
+                       {...register("email", {required: true})}/>
+                {errors.email && <span className="form-text text-muted">Email is required</span>}
+            </div>
+            <div className="form-group">
+                <label className="control-label">Password</label>
+                <input className={classnames('form-control', {'is-invalid': errors.password})}
+                       name="password"
+                       type="password"
+                       ref={register("password",{
+                           required: "You must specify a password",
+                           minLength: {
+                               value: 8,
+                               message: "Password must have at least 8 characters"
+                           }
+                       })}/>
+                {errors.password && <span className="form-text text-muted">{errors.password.message}</span>}
+
+            </div>
+            <div className="form-group">
+                <label className="control-label">Confirm Password</label>
+                <input className={classnames('form-control', {'is-invalid': errors.passwordConfirm})}
+                       type="password"
+                       ref={register("passwordConfirm", {validate: value => value === password.current || "The passwords do not match"})}/>
+                {errors.passwordConfirm &&
+                <span className="form-text text-muted">{errors.passwordConfirm.message}</span>}
+            </div>
+            <button className="btn-primary">Register</button>
+        </form>
+    )
 
 
-    render() {
-        const {username, email, password, passwordConfirm, isLoading, errorMessage} = this.state;
-        return (
-            <form onSubmit={this.onSubmit}>
-                <h1>Join our community</h1>
-                <div className="form-group">
-                    <label className="control-label">Username</label>
-                    <input className={classnames('form-control', {'is-invalid': errorMessage.username})}
-                           type="text"
-                           name="username"
-                           value={username}
-                           onChange={this.onChange}
-                    />
-                    {errorMessage.username && <span className="form-text text-muted">{errorMessage.username}</span>}
-                </div>
-                <div className="form-group">
-                    <label className="control-label">Email</label>
-                    <input className={classnames('form-control', {'is-invalid': errorMessage.email})}
-                           type="email"
-                           name="email"
-                           value={email}
-                           onChange={this.onChange}/>
-                    {errorMessage.email && <span className="form-text text-muted">{errorMessage.email}</span>}
-                </div>
-                <div className="form-group">
-                    <label className="control-label">Password</label>
-                    <input className={classnames('form-control', {'is-invalid': errorMessage.password})}
-                           type="password"
-                           name="password"
-                           value={password}
-                           onChange={this.onChange}/>
-                    {errorMessage.password && <span className="form-text text-muted">{errorMessage.password}</span>}
-
-                </div>
-                <div className="form-group">
-                    <label className="control-label">Confirm Password</label>
-                    <input className={classnames('form-control', {'is-invalid': errorMessage.passwordConfirm})}
-                           type="password"
-                           name="passwordConfirm"
-                           value={passwordConfirm}
-                           onChange={this.onChange}/>
-                    {errorMessage.passwordConfirm &&
-                    <span className="form-text text-muted">{errorMessage.passwordConfirm}</span>}
-                </div>
-                <button disabled={isLoading} className="btn-primary">Register</button>
-            </form>
-        )
-    }
 }
 
 export default withRouter(SignupForm);
