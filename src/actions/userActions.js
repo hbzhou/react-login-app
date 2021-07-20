@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const register = (user) => {
+export const registerUser = (user) => {
     return dispatch => {
         return axios.post('/api/users/register', user);
     }

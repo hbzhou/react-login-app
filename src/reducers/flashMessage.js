@@ -1,7 +1,7 @@
 import {ADD_FLASH_MESSAGE, REMOVE_FLASH_MESSAGE} from "../constants";
 import shortid from "shortid";
 
-const flashMessages = (state = [], action = {}) => {
+const flashMessage = (state = [], action = {}) => {
     switch (action.type) {
         case ADD_FLASH_MESSAGE:
             return [...state, {
@@ -16,4 +16,4 @@ const flashMessages = (state = [], action = {}) => {
     }
 }
 
-export default flashMessages;
+export default flashMessage;
