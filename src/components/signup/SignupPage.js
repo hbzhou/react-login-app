@@ -2,8 +2,8 @@ import React from 'react'
 import SignupForm from './SignupForm'
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {registerUser} from '../../actions/userActions';
-import {addFlashMessage} from '../../actions/flashMessageActions'
+import {registerUser} from '../../actions/userAction';
+import {addFlashMessage} from '../../actions/flashMessageAction'
 
 
 const SignupPage = ({registerUser, addFlashMessage}) => {

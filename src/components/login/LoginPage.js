@@ -2,9 +2,9 @@ import React from "react";
 
 import LoginForm from "./LoginForm";
 import {connect} from "react-redux";
-import {login} from "../../actions/userActions";
+import {login} from "../../actions/userAction";
 import {bindActionCreators} from "redux";
-import {addFlashMessage} from "../../actions/flashMessageActions";
+import {addFlashMessage} from "../../actions/flashMessageAction";
 
 
 const LoginPage = ({login, addFlashMessage}) => {
