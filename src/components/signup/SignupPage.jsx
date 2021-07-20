@@ -2,8 +2,8 @@ import React from 'react'
 import SignupForm from './SignupForm'
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import * as registerActions from '../../actions/registerAction';
-import * as flashMessageActions from '../../actions/flashMessages'
+import {register} from '../../actions/userActions';
+import {addFlashMessage} from '../../actions/flashMessageActions'
 
 
 class SignupPage extends React.Component {
@@ -13,8 +13,8 @@ class SignupPage extends React.Component {
                 <div className="row">
                     <div className="col-md-3"/>
                     <div className="col-md-6">
-                        <SignupForm registerActions={this.props.registerActions}
-                                    flashActions={this.props.flashMessageActions}/>
+                        <SignupForm registerUser={this.props.registerUser}
+                                    addFlashMessage ={this.props.addFlashMessage}/>
                     </div>
                     <div className="col-md-3"/>
                 </div>
@@ -25,8 +25,8 @@ class SignupPage extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        registerActions: bindActionCreators(registerActions, dispatch),
-        flashMessageActions: bindActionCreators(flashMessageActions, dispatch)
+        registerUser: bindActionCreators(register, dispatch),
+        addFlashMessage: bindActionCreators(addFlashMessage, dispatch)
     }
 }
 
