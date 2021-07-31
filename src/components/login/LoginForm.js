@@ -7,16 +7,18 @@ import {useForm} from "react-hook-form";
 const LoginForm = ({login, addFlashMessage, history}) => {
 
     const onSubmit = (data) => {
-        login(data).then(() => {
+        login(data).then((response) => {
+            const token = response.data.token;
+            localStorage.setItem('token', token);
             addFlashMessage({
                 type: "success",
                 text: "Login successfully"
             })
             history.push('/')
-        }, ({response}) => {
+        }, ({error}) => {
             addFlashMessage({
                 type: "danger",
-                text: response.data.message
+                text: error.data.message
             })
         })
     }

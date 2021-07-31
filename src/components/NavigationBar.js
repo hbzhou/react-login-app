@@ -4,6 +4,7 @@ import App from './App';
 import SignupPage from './signup/SignupPage';
 import FlashMessageList from "./flash/FlashMessageList";
 import LoginPage from "./login/LoginPage";
+import UserList from "./users/UserList";
 
 const navigationBar = () => {
     return (
@@ -22,6 +23,7 @@ const navigationBar = () => {
                 <Route exact path="/" component={App}/>
                 <Route path="/signup" component={SignupPage}/>
                 <Route path="/login" component={LoginPage}/>
+                <Route path="/users" component={UserList}/>
             </div>
         </div>
     )

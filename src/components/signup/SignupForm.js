@@ -12,7 +12,7 @@ const SignupForm = ({registerUser, addFlashMessage, history}) => {
                     type: "success",
                     text: "Register successfully,welcome to join our community!"
                 })
-                history.push('/')
+                history.push('/login')
             }, ({response}) => {
                 addFlashMessage({
                     type: "danger",
