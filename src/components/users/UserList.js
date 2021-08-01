@@ -1,22 +1,20 @@
 import React, {useEffect, useState} from 'react';
 
-import {getUsers} from '../../actions/userAction'
-import {bindActionCreators} from "redux";
-import {connect} from "react-redux";
 import User from "./User";
+import {getUsers} from "../../services/userService"
 
 
-const UserList = ({userList}) => {
+const UserList = () => {
 
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        userList().then((response) => {
+        getUsers().then((response) => {
             setUsers(response.data)
         }, ({response}) => {
             console.log(response.data.message)
         })
-    }, [userList])
+    }, [])
 
     return (
         <div className="jumbotron">
@@ -37,11 +35,5 @@ const UserList = ({userList}) => {
     )
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        userList: bindActionCreators(getUsers, dispatch)
-    };
-}
 
-
-export default connect(null, mapDispatchToProps)(UserList);
+export default UserList;

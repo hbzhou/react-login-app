@@ -2,12 +2,13 @@ import React from "react";
 import classnames from "classnames"
 import {withRouter} from 'react-router-dom'
 import {useForm} from "react-hook-form";
+import authService from "../../services/authService"
 
 
-const LoginForm = ({login, addFlashMessage, history}) => {
+const LoginForm = ({addFlashMessage, history}) => {
 
     const onSubmit = (data) => {
-        login(data).then((response) => {
+        authService.login(data).then((response) => {
             const token = response.data.token;
             localStorage.setItem('token', token);
             addFlashMessage({

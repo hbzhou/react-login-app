@@ -3,11 +3,12 @@ import React from 'react'
 import classnames from "classnames"
 import {withRouter} from 'react-router-dom'
 import {useForm} from "react-hook-form";
+import authService from "../../services/authService"
 
-const SignupForm = ({registerUser, addFlashMessage, history}) => {
+const SignupForm = ({addFlashMessage, history}) => {
     const {register, handleSubmit, formState: {errors}} = useForm();
     const onSubmit = (data) => {
-        registerUser(data).then(() => {
+        authService.registerUser(data).then(() => {
                 addFlashMessage({
                     type: "success",
                     text: "Register successfully,welcome to join our community!"
