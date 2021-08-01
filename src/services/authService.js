@@ -8,9 +8,14 @@ const login = (data) => {
     return axios.post('/api/auth/login', data);
 }
 
+const logout = () => {
+    localStorage.removeItem("user");
+}
+
 const authService = {
     registerUser,
-    login
+    login,
+    logout
 }
 export default authService;
 

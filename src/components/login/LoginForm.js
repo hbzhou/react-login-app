@@ -9,13 +9,20 @@ const LoginForm = ({addFlashMessage, history}) => {
 
     const onSubmit = (data) => {
         authService.login(data).then((response) => {
-            const token = response.data.token;
-            localStorage.setItem('token', token);
+            const authentication = response.data.authentication;
+            const user = {
+                name: authentication.name,
+                token: response.data.token,
+                authorities: authentication.authorities
+            }
+            localStorage.setItem("user", JSON.stringify(user));
+
             addFlashMessage({
                 type: "success",
                 text: "Login successfully"
             })
             history.push('/')
+            window.location.reload();
         }, ({error}) => {
             addFlashMessage({
                 type: "danger",

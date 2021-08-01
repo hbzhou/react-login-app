@@ -1,20 +1,29 @@
 import React, {useEffect, useState} from 'react';
 
 import User from "./User";
-import {getUsers} from "../../services/userService"
+import userService from "../../services/userService"
+import {addFlashMessage} from "../../actions/flashMessageAction";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
 
 
-const UserList = () => {
+const UserList = ({addFlashMessage, history}) => {
 
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        getUsers().then((response) => {
+        userService.getUsers().then((response) => {
             setUsers(response.data)
         }, ({response}) => {
             console.log(response.data.message)
+            addFlashMessage({
+                type: "danger",
+                text: response.data.message
+            })
+            history.push("/login")
+
         })
-    }, [])
+    },[history,addFlashMessage])
 
     return (
         <div className="jumbotron">
@@ -35,5 +44,11 @@ const UserList = () => {
     )
 }
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addFlashMessage: bindActionCreators(addFlashMessage, dispatch)
+    }
+}
 
-export default UserList;
+
+export default connect(null, mapDispatchToProps)(UserList);

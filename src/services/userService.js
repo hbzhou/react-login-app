@@ -1,10 +1,20 @@
 import axios from 'axios';
+import JwtHeader from "./JwtHeader";
 
-export const getUsers = () => {
+const getUsers = () => {
     return axios.get('/api/users', {
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token")
-        }
+        headers: JwtHeader()
     });
 }
+
+const getCurrentUser = () => {
+    return JSON.parse(localStorage.getItem("user"));
+}
+
+const userService = {
+    getCurrentUser,
+    getUsers
+}
+
+export default userService;
 
