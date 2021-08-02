@@ -23,10 +23,11 @@ const LoginForm = ({addFlashMessage, history}) => {
             })
             history.push('/')
             window.location.reload();
-        }, ({error}) => {
+        },({response}) => {
+            console.log(response)
             addFlashMessage({
                 type: "danger",
-                text: error.data.message
+                text: response.data.message
             })
         })
     }
@@ -46,7 +47,8 @@ const LoginForm = ({addFlashMessage, history}) => {
 
                 <div className="form-group">
                     <label className="control-label">Password</label>
-                    <input type="password" className={classnames("form-control", {"is-invalid": errors.password})}
+                    <input type="password"
+                           className={classnames("form-control", {"is-invalid": errors.password})}
                            {...register("password", {required: true})}
                     />
                     {errors.password && <span className="form-text text-muted">Password is required</span>}

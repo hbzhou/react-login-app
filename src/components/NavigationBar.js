@@ -8,6 +8,7 @@ import UserList from "./users/UserList";
 import userService from "../services/userService";
 import authService from "../services/authService";
 import Profile from "./users/Profile";
+import Home from "./home/Home";
 
 const NavigationBar = () => {
 
@@ -60,6 +61,7 @@ const NavigationBar = () => {
                 <Route path="/login" component={LoginPage}/>
                 <Route path="/users" component={UserList}/>
                 <Route path="/profile" component={Profile}/>
+                <Route path = "/home" component={Home}/>
             </div>
         </div>
     )
