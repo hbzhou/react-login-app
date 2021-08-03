@@ -1,18 +1,14 @@
 import React from "react";
-
 import LoginForm from "./LoginForm";
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
-import {addFlashMessage} from "../../actions/flashMessageAction";
 
 
-const LoginPage = ({addFlashMessage}) => {
+const LoginPage = () => {
     return (
         <div className="jumbotron">
             <div className="row">
                 <div className="col-md-3"/>
                 <div className="col-md-6">
-                    <LoginForm  addFlashMessage={addFlashMessage}/>
+                    <LoginForm/>
                 </div>
                 <div className="col-md-3"/>
             </div>
@@ -20,10 +16,4 @@ const LoginPage = ({addFlashMessage}) => {
     )
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addFlashMessage: bindActionCreators(addFlashMessage, dispatch)
-    }
-}
-
-export default connect(null, mapDispatchToProps)(LoginPage)
+export default LoginPage

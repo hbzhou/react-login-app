@@ -1,11 +1,14 @@
 import React from 'react'
+import {useDispatch} from "react-redux";
 import classnames from 'classnames'
+import {removeFlashMessage} from "../../actions/flashMessageAction";
 
-const FlashMessage = ({message, removeFlashMessage}) => {
+const FlashMessage = ({message}) => {
     const {type, text} = message;
+    const dispatch = useDispatch();
 
     const removeMessage = () => {
-        removeFlashMessage(message);
+        dispatch(removeFlashMessage(message));
     }
 
     return (

@@ -1,12 +1,14 @@
 import React from "react";
+import {useDispatch} from "react-redux";
 import classnames from "classnames"
 import {withRouter} from 'react-router-dom'
 import {useForm} from "react-hook-form";
 import authService from "../../services/authService"
+import {addFlashMessage} from "../../actions/flashMessageAction";
 
 
-const LoginForm = ({addFlashMessage, history}) => {
-
+const LoginForm = ({history}) => {
+    const dispatch = useDispatch();
     const onSubmit = (data) => {
         authService.login(data).then((response) => {
             const authentication = response.data.authentication;
@@ -16,19 +18,18 @@ const LoginForm = ({addFlashMessage, history}) => {
                 authorities: authentication.authorities
             }
             localStorage.setItem("user", JSON.stringify(user));
-
-            addFlashMessage({
+            dispatch(addFlashMessage({
                 type: "success",
                 text: "Login successfully"
-            })
+            }));
             history.push('/')
             window.location.reload();
-        },({response}) => {
+        }, ({response}) => {
             console.log(response)
-            addFlashMessage({
+            dispatch( addFlashMessage({
                 type: "danger",
                 text: response.data.message
-            })
+            }));
         })
     }
 

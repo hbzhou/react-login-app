@@ -1,21 +1,26 @@
 import React from 'react'
+import {useDispatch} from "react-redux";
 
 import classnames from "classnames"
 import {withRouter} from 'react-router-dom'
 import {useForm} from "react-hook-form";
 import authService from "../../services/authService"
+import {addFlashMessage} from '../../actions/flashMessageAction'
 
-const SignupForm = ({addFlashMessage, history}) => {
+
+const SignupForm = ({history}) => {
     const {register, handleSubmit, formState: {errors}} = useForm();
+    const dispatch = useDispatch();
+    const dispatchFlashMessage = message => dispatch(addFlashMessage(message))
     const onSubmit = (data) => {
         authService.registerUser(data).then(() => {
-                addFlashMessage({
+                dispatchFlashMessage({
                     type: "success",
                     text: "Register successfully,welcome to join our community!"
-                })
+                });
                 history.push('/login')
             }, ({response}) => {
-                addFlashMessage({
+                dispatchFlashMessage({
                     type: "danger",
                     text: response.data.message
                 })

@@ -9,6 +9,7 @@ import userService from "../services/userService";
 import authService from "../services/authService";
 import Profile from "./users/Profile";
 import Home from "./home/Home";
+import Home2 from "./home/Home2";
 
 const NavigationBar = () => {
 
@@ -33,6 +34,9 @@ const NavigationBar = () => {
                 <div className="navbar-nav mr-auto">
                     <li className="nav-item">
                         <Link to="/home" className="nav-link">Home page</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/home2" className="nav-link">Home2 page</Link>
                     </li>
                 </div>
                 {currentUser ?
@@ -62,6 +66,7 @@ const NavigationBar = () => {
                 <Route path="/users" component={UserList}/>
                 <Route path="/profile" component={Profile}/>
                 <Route path = "/home" component={Home}/>
+                <Route path = "/home2" component={Home2}/>
             </div>
         </div>
     )

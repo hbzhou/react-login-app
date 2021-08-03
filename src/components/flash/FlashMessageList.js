@@ -1,24 +1,21 @@
 import React from 'react'
 import FlashMessage from "./FlashMessage";
-import {connect} from "react-redux";
-import {removeFlashMessage} from "../../actions/flashMessageAction";
+import {useSelector} from "react-redux";
 
 
-const FlashMessageList = ({removeFlashMessage, flashMessages}) => {
+
+const FlashMessageList = () => {
+    const flashMessages = useSelector(state => {
+        return state.flashMessages;
+    });
     return (
         <div className="container">
             {flashMessages.map((message) => {
-                return <FlashMessage key={message.id} message={message} removeFlashMessage={removeFlashMessage}/>
+                return <FlashMessage key={message.id} message={message}/>
             })}
         </div>
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        flashMessages: state.flashMessages
-    }
-}
 
-
-export default connect(mapStateToProps, {removeFlashMessage})(FlashMessageList)
+export default FlashMessageList;
