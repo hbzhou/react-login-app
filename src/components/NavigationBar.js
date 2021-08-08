@@ -11,6 +11,8 @@ import Profile from "./users/Profile";
 import Home from "./home/Home";
 import Home2 from "./home/Home2";
 import Home1 from "./home/Home1";
+import Home4 from "./home/Home4";
+import Home5 from "./home/Home5";
 
 const NavigationBar = () => {
 
@@ -42,6 +44,15 @@ const NavigationBar = () => {
                     <li className="nav-item">
                         <Link to="/home2" className="nav-link">Home2 page</Link>
                     </li>
+                    {/*<li className="nav-item">*/}
+                    {/*    <Link to="/home3" className="nav-link">Home3 page</Link>*/}
+                    {/*</li>*/}
+                    <li className="nav-item">
+                        <Link to="/home4" className="nav-link">Home4 page</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/home5" className="nav-link">Home5 page</Link>
+                    </li>
                 </div>
                 {currentUser ?
                     (<div className="navbar-nav ml-auto">
@@ -72,6 +83,9 @@ const NavigationBar = () => {
                 <Route path = "/home" component={Home}/>
                 <Route path = "/home1" component={Home1}/>
                 <Route path = "/home2" component={Home2}/>
+                {/*<Route path = "/home3" component={Home3}/>*/}
+                <Route path = "/home4" component={Home4}/>
+                <Route path = "/home5" component={Home5}/>
             </div>
         </div>
     )
